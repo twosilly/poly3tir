@@ -16,7 +16,7 @@ class Sweep(object):
         # 清除
         self.FinalizationPolygon(tcx);
     def SweepPoints(self,tcx):
-        for i in range(len(tcx)):
+        for i in range(tcx.point_count()):
             point = tcx.GetPoint(i);
             node = self.PointEvent(tcx, point);
             for i in range(len(point.edge_list)):
@@ -82,9 +82,9 @@ class Sweep(object):
             self.FlipEdgeEvent(tcx, ep, eq, triangle, point);
     #FIXME:貌似有点问题
     def NewFrontTriangle(self,tcx,point,node):
-        triangle = Triangle3(point, *node.point, *node.next.point);
+        triangle = Triangle3(point, node.point, node.next.point);
 
-        triangle.MarkNeighbor(*node.triangle);
+        triangle.MarkNeighbor(node.triangle);
         tcx.AddToMap(triangle);
         new_node = Node(point);
         self.nodes_.append(new_node);
@@ -94,8 +94,8 @@ class Sweep(object):
         node.next.prev = new_node;
         node.next = new_node;
 
-        if (not self.Legalize(tcx, * triangle)):
-            tcx.MapTriangleToNodes( * triangle);
+        if (not self.Legalize(tcx,  triangle)):
+            tcx.MapTriangleToNodes(  triangle);
 
         return new_node;
 

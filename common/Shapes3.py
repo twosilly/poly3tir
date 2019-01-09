@@ -158,14 +158,14 @@ class Triangle3(object):
             raise RuntimeError('MarkNeighbor Error')
         #穷举搜索更新邻居指针
     def MarkNeighbor(self, t):
-        if t.Contains(self.points_[1], self.points_[2]):
+        if t.Contains2(self.points_[1], self.points_[2]):
             self.neighbors_[0] =  t;
             t.MarkNeighbor(self.points_[1], self.points_[2], self);
 
-        elif t.Contains(self.points_[0], self.points_[2]):
+        elif t.Contains2(self.points_[0], self.points_[2]):
             self.neighbors_[1] =  t;
             t.MarkNeighbor(self.points_[0], self.points_[2], self);
-        elif t.Contains(self.points_[0], self.points_[1]):
+        elif t.Contains2(self.points_[0], self.points_[1]):
             self.neighbors_[2] = t;
             t.MarkNeighbor(self.points_[0], self.points_[1], self);
 
@@ -173,10 +173,10 @@ class Triangle3(object):
     def Contains(self, p):
         return p == self.points_[0] or p == self.points_[1] or p == self.points_[2]
 
-    def Contains(self, e):
+    def ContainsEdge(self, e):
         return self.Contains(e.p) and self.Contains(e.q)
 
-    def Contains(self , p,  q):
+    def Contains2(self , p,  q):
         return self.Contains(p) and self.Contains(q)
 
     def MarkConstrainedEdge(self,index):
@@ -185,7 +185,7 @@ class Triangle3(object):
     def MarkConstrainedEdge(self,edge):
         self.MarkConstrainedEdge(edge.p, edge.q)
 
-    def MarkConstrainedEdge(self,p,q):
+    def MarkConstrainedEdge2(self,p,q):
         if ((q == self.points_[0] and p == self.points_[1]) or (q == self.points_[1] and p == self.points_[0])) :
             self.constrained_edge[2] = True;
         elif ((q == self.points_[0] and p == self.points_[2]) or (q == self.points_[2] and p == self.points_[0])) :

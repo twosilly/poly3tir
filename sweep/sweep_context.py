@@ -64,7 +64,7 @@ class SweepContext(object):
         return len(self.points_)
     def LocateNode(self,point):
         #TODO:实现搜索树
-        return self.front_.LocateNone(point.x)
+        return self.front_.LocateNode(point.X)
 
     #FIXME:这里绝对有问题
     def RemoveNode(self,node):
